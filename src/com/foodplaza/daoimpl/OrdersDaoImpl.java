@@ -203,31 +203,28 @@ public class OrdersDaoImpl implements OrdersDao {
 	}
 
 	@Override
-	public boolean updateOrderStatus(Orders o) throws SQLException {
+	public boolean updateOrderStatus(String customerEmailId , String orderStatus) throws SQLException {
 		// TODO Auto-generated method stub
-		String UpdateStatus = "update orders set orderStatus = ? where customerEmail = ?";
+		String UpdateStatus = "update orders set orderStatus = ? where customerEmailId = ?";
 		try {
 			conn = DBConnection.establishConnection();
+			ps =conn.prepareStatement(UpdateStatus);
+			Orders o = new Orders();
+			ps.setString(1,orderStatus);
+			ps.setString(2,customerEmailId);
+			row = ps.executeUpdate();
+			//rs = ps.executeQuery();
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		ps =conn.prepareStatement(UpdateStatus);
 		
-		ps.setString(1,o.getOrderStatus());
-		ps.setString(2, o.getCustomerEmail());
-		
-		//rs = ps.executeQuery();
-		row = ps.executeUpdate();
 		//Orders o2 = new Orders();
-			if(row>0)
-			{
+			if(row>0) {
 				return true;
-			
-			}
-			else
-			{
+			}else {
 				return false;
 			}
 	}
