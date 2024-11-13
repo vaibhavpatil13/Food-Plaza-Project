@@ -95,23 +95,13 @@ public class OrdersService {
 				break;
 				
 			case 6:
-				System.out.println("Enter email id");
-				customerEmail = sc.next();
-				
-				System.out.println("Enter order Status");
-				orderStatus = sc.next();
-				
-				o.setCustomerEmail(customerEmail);
-				o.setOrderStatus(orderStatus);
-				
-				flag = odi.updateOrderStatus(o);
-				
-				if(flag) {
-					System.out.println("stetus updated sucessfully");
-				}else {
-					System.out.println("something went wrong");
-				}
-				break;
+				System.out.println("Enter Email Id");
+			customerEmailId = sc.next();
+			
+			orderStatus = odi.checkOrderStatus(customerEmailId);
+			
+			System.out.println("Your order is "+orderStatus);
+			break;
 				
 			}
 		}
